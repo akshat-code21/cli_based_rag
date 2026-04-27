@@ -1,0 +1,16 @@
+[project]
+name = "document-qna"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain",
+    "langchain-huggingface",
+    "langchain-chroma",
+    "langchain-unstructured",
+    "langchain-text-splitters",
+    "click",
+    "python-dotenv",
+    "langchain-community>=0.4.1",
+]
