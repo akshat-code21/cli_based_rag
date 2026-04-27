@@ -11,7 +11,6 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores.utils import filter_complex_metadata
 from langchain.agents.middleware import dynamic_prompt, ModelRequest
 from langchain.agents import create_agent
-from dotenv import load_dotenv
 
 load_dotenv()
 
