@@ -1,7 +1,13 @@
 import click
-import os
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
+
 from dotenv import load_dotenv
+from rich import box
+from rich.align import Align
+from rich.console import Console, Group
+from rich.panel import Panel
+from rich.text import Text
 
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -13,6 +19,39 @@ from langchain.agents.middleware import dynamic_prompt, ModelRequest
 from langchain.agents import create_agent
 
 load_dotenv()
+
+
+def _app_version() -> str:
+    try:
+        return version("document-qna")
+    except PackageNotFoundError:
+        return "0.1.0"
+
+
+def print_startup_banner(console: Console | None = None) -> None:
+    c = console or Console()
+    title = Text()
+    title.append("document", style="bold #7dd3fc")
+    title.append(" · ", style="bold dim")
+    title.append("qna", style="bold #c4b5fd")
+
+    sub = Text()
+    sub.append("local RAG · Hugging Face · Chroma", style="dim")
+    sub.append("\n")
+    sub.append(f"v{_app_version()}", style="dim italic")
+
+    inner = Group(Align.center(title), Align.center(sub))
+    c.print()
+    c.print(
+        Panel(
+            inner,
+            box=box.ROUNDED,
+            border_style="bright_black",
+            padding=(0, 2),
+            width=min(56, c.size.width) if c.size.width else None,
+        )
+    )
+    c.print()
 
 
 def setup_hf_chat():
@@ -103,6 +142,7 @@ def build_prompt_middleware(vector_store):
 def main(path):
     input_path = Path(path)
 
+    print_startup_banner()
     click.echo("Setting up models and vector store...")
     embeddings = setup_hf_embeddings()
     vector_store = setup_chroma(embeddings)

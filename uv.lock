@@ -414,6 +414,7 @@ dependencies = [
     { name = "langchain-text-splitters" },
     { name = "langchain-unstructured" },
     { name = "python-dotenv" },
+    { name = "rich" },
 ]
 
 [package.metadata]
@@ -426,6 +427,7 @@ requires-dist = [
     { name = "langchain-text-splitters" },
     { name = "langchain-unstructured" },
     { name = "python-dotenv" },
+    { name = "rich", specifier = ">=15.0.0" },
 ]
 
 [[package]]

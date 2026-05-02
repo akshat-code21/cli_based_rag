@@ -13,4 +13,5 @@ dependencies = [
     "click",
     "python-dotenv",
     "langchain-community>=0.4.1",
+    "rich>=15.0.0",
 ]
